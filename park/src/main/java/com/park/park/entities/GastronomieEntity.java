@@ -11,15 +11,12 @@ import java.math.BigInteger;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "GASTRONOMIE", schema = "KAMMAT3")
+@Table(name = "GASTRONOMIE", schema = "PARK_ROZRYWKI")
 public class GastronomieEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ID_ATRAKCJI", nullable = false, precision = 0)
     private BigInteger idAtrakcji;
-    @Basic
-    @Column(name = "NAZWA", nullable = false, length = 50)
-    private String nazwa;
     @Basic
     @Column(name = "TYP", nullable = false, length = 30)
     private String typ;

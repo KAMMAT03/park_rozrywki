@@ -11,7 +11,7 @@ import java.math.BigInteger;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "PARKI_ROZRYWKI", schema = "KAMMAT3")
+@Table(name = "PARKI_ROZRYWKI", schema = "PARK_ROZRYWKI")
 public class ParkiRozrywkiEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

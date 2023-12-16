@@ -12,15 +12,12 @@ import java.sql.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "KOLEJKI_GORSKIE", schema = "KAMMAT3")
+@Table(name = "KOLEJKI_GORSKIE", schema = "PARK_ROZRYWKI")
 public class KolejkiGorskieEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ID_ATRAKCJI", nullable = false, precision = 0)
     private BigInteger idAtrakcji;
-    @Basic
-    @Column(name = "NAZWA_KOLEJKI", nullable = false, length = 50)
-    private String nazwaKolejki;
     @Basic
     @Column(name = "CZAS_OCZEKIWANIA", nullable = false, precision = 0)
     private BigInteger czasOczekiwania;

@@ -5,18 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ATRAKCJE", schema = "KAMMAT3")
+@Table(name = "ATRAKCJE", schema = "PARK_ROZRYWKI")
 public class AtrakcjeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID_ATRAKCJI", nullable = false, precision = 0)
-    private BigInteger idAtrakcji;
+    @Column(name = "ID_ATRAKCJI", nullable = false)
+    private long idAtrakcji;
     @Basic
     @Column(name = "NAZWA_ATRAKCJI", nullable = false, length = 40)
     private String nazwaAtrakcji;
@@ -24,9 +22,9 @@ public class AtrakcjeEntity {
     @Column(name = "TYP_ATRAKCJI", nullable = false, length = 15)
     private String typAtrakcji;
     @Basic
-    @Column(name = "OPIS_ATRAKCJI", nullable = true, length = 1200)
+    @Column(name = "OPIS_ATRAKCJI", length = 1200)
     private String opisAtrakcji;
     @Basic
-    @Column(name = "ID_PARKU_ROZRYWKI", nullable = false, precision = 0)
-    private BigInteger idParkuRozrywki;
+    @Column(name = "ID_PARKU_ROZRYWKI", nullable = false)
+    private long idParkuRozrywki;
 }
