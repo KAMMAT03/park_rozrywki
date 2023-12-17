@@ -42,6 +42,16 @@ public class AtrakcjeServiceImpl implements AtrakcjeService{
         return mapToDTO(finalAtrakcjeEntity);
     }
 
+    @Override
+    public AtrakcjeDTO updateAtrakcje(AtrakcjeDTO atrakcjeDTO, long idAtrakcji) {
+        return null;
+    }
+
+    @Override
+    public void deleteAtrakcje(long idAtrakcji) {
+
+    }
+
     private AtrakcjeEntity mapToEntity(AtrakcjeDTO atrakcjeDTO){
         AtrakcjeEntity atrakcjeEntity = new AtrakcjeEntity();
         atrakcjeEntity.setNazwaAtrakcji(atrakcjeDTO.getNazwaAtrakcji());

@@ -17,13 +17,7 @@ public class BiletyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ID_BILETU", nullable = false, precision = 0)
-    private BigInteger idBiletu;
-    @Basic
-    @Column(name = "STATUS_BILETU", nullable = false, length = 30)
-    private String statusBiletu;
-    @Basic
-    @Column(name = "KOD_RABATOWY", nullable = false, precision = 2)
-    private byte kodRabatowy;
+    private long idBiletu;
     @Basic
     @Column(name = "DATA_WAZNOSCI", nullable = false)
     private Date dataWaznosci;
