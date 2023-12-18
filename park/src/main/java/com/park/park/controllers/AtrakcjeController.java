@@ -30,4 +30,16 @@ public class AtrakcjeController {
                    @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize){
         return new ResponseEntity<>(atrakcjeService.getAllAtrakcje(pageNo, pageSize), HttpStatus.OK);
     }
+
+    @PutMapping("/update/{idAtrakcji}")
+    public ResponseEntity<AtrakcjeDTO> updateAtrakcje(@PathVariable(value = "idAtrakcji") long idAtrakcji,
+                                                      @RequestBody AtrakcjeDTO atrakcjeDTO){
+            return new ResponseEntity<>(atrakcjeService.updateAtrakcje(atrakcjeDTO, idAtrakcji), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{idAtrakcji}")
+    public ResponseEntity<String> deleteAtrakcje(@PathVariable(value = "idAtrakcji") long idAtrakcji){
+        atrakcjeService.deleteAtrakcje(idAtrakcji);
+        return new ResponseEntity<>("Atrakcja została usunięta", HttpStatus.OK);
+    }
 }
