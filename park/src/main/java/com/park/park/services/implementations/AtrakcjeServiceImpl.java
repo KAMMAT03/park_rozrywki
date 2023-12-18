@@ -1,9 +1,10 @@
-package com.park.park.services;
+package com.park.park.services.implementations;
 
 import com.park.park.dto.AtrakcjeDTO;
 import com.park.park.entities.AtrakcjeEntity;
 import com.park.park.repositories.AtrakcjeRepository;
 import com.park.park.responses.AtrakcjeResponse;
+import com.park.park.services.AtrakcjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,7 @@ import java.util.List;
 
 
 @Service
-public class AtrakcjeServiceImpl implements AtrakcjeService{
+public class AtrakcjeServiceImpl implements AtrakcjeService {
     private final AtrakcjeRepository atrakcjeRepository;
 
     @Autowired
@@ -44,12 +45,24 @@ public class AtrakcjeServiceImpl implements AtrakcjeService{
 
     @Override
     public AtrakcjeDTO updateAtrakcje(AtrakcjeDTO atrakcjeDTO, long idAtrakcji) {
-        return null;
+        AtrakcjeEntity atrakcjeEntity = atrakcjeRepository.findById(idAtrakcji)
+                .orElseThrow(() -> new RuntimeException("Nie ma atrakcji o zadanym id"));
+
+        if (atrakcjeDTO.getNazwaAtrakcji() != null) atrakcjeEntity.setNazwaAtrakcji(atrakcjeDTO.getNazwaAtrakcji());
+        if (atrakcjeDTO.getTypAtrakcji() != null) atrakcjeEntity.setTypAtrakcji(atrakcjeDTO.getTypAtrakcji());
+        if (atrakcjeDTO.getOpisAtrakcji() != null) atrakcjeEntity.setOpisAtrakcji(atrakcjeDTO.getOpisAtrakcji());
+
+        AtrakcjeEntity updatedAtrakcje = atrakcjeRepository.save(atrakcjeEntity);
+
+        return mapToDTO(updatedAtrakcje);
     }
 
     @Override
     public void deleteAtrakcje(long idAtrakcji) {
+        AtrakcjeEntity atrakcjeEntity = atrakcjeRepository.findById(idAtrakcji)
+                .orElseThrow(() -> new RuntimeException("Nie ma atrakcji o zadanym id"));
 
+        atrakcjeRepository.delete(atrakcjeEntity);
     }
 
     private AtrakcjeEntity mapToEntity(AtrakcjeDTO atrakcjeDTO){
