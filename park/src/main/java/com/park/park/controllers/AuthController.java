@@ -21,7 +21,7 @@ import java.util.Collections;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/auth/")
+@RequestMapping("/api/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
@@ -38,7 +38,7 @@ public class AuthController {
         this.jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserDTO userDTO){
         if (userRepository.existsByUsername(userDTO.getUsername())) {
             String jsonBad = "{ \"code\": \"404\", \"message\": \"This username is already taken!\" }";
@@ -72,7 +72,7 @@ public class AuthController {
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody UserDTO userDTO){
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));

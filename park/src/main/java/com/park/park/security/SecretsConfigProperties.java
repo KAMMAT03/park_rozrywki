@@ -3,5 +3,5 @@ package com.park.park.security;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("config")
-public record SecretsConfigProperties(String clientId, String clientSecret, String jwtSecret) {
+public record SecretsConfigProperties(String jwtSecret) {
 }
