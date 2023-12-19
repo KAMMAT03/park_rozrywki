@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.sql.Date;
 
 @Entity
@@ -16,7 +15,7 @@ import java.sql.Date;
 public class BiletyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID_BILETU", nullable = false, precision = 0)
+    @Column(name = "ID_BILETU", nullable = false)
     private long idBiletu;
     @Basic
     @Column(name = "DATA_WAZNOSCI", nullable = false)
@@ -25,12 +24,12 @@ public class BiletyEntity {
     @Column(name = "DATA_ZAKUPU", nullable = false)
     private Date dataZakupu;
     @Basic
-    @Column(name = "ID_KLIENTA", nullable = false, precision = 0)
-    private BigInteger idKlienta;
+    @Column(name = "ID_KLIENTA", nullable = false)
+    private long idKlienta;
     @Basic
-    @Column(name = "ID_TYPU_BILETU", nullable = false, precision = 0)
-    private BigInteger idTypuBiletu;
+    @Column(name = "ID_TYPU_BILETU", nullable = false)
+    private long idTypuBiletu;
     @Basic
-    @Column(name = "ID_PARKU_ROZRYWKI", nullable = false, precision = 0)
-    private BigInteger idParkuRozrywki;
+    @Column(name = "ID_PARKU_ROZRYWKI", nullable = false)
+    private long idParkuRozrywki;
 }

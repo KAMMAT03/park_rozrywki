@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.sql.Date;
 
 @Entity
@@ -16,8 +15,8 @@ import java.sql.Date;
 public class PracownicyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID_PRACOWNIKA", nullable = false, precision = 0)
-    private BigInteger idPracownika;
+    @Column(name = "ID_PRACOWNIKA", nullable = false)
+    private long idPracownika;
     @Basic
     @Column(name = "NUMER_DOKUMENTU", nullable = false, length = 20)
     private String numerDokumentu;
@@ -28,7 +27,7 @@ public class PracownicyEntity {
     @Column(name = "NAZWISKO", nullable = false, length = 30)
     private String nazwisko;
     @Basic
-    @Column(name = "PESEL", nullable = true, length = 11)
+    @Column(name = "PESEL", length = 11)
     private String pesel;
     @Basic
     @Column(name = "DATA_URODZENIA", nullable = false)
@@ -40,7 +39,7 @@ public class PracownicyEntity {
     @Column(name = "NR_KONTA", nullable = false, length = 26)
     private String nrKonta;
     @Basic
-    @Column(name = "NR_TELEFONU", nullable = true, length = 15)
+    @Column(name = "NR_TELEFONU", length = 15)
     private String nrTelefonu;
     @Basic
     @Column(name = "MIASTO", nullable = false, length = 20)
@@ -55,15 +54,15 @@ public class PracownicyEntity {
     @Column(name = "NR_POSESJI", nullable = false, length = 6)
     private String nrPosesji;
     @Basic
-    @Column(name = "NR_LOKALU", nullable = true, length = 6)
+    @Column(name = "NR_LOKALU", length = 6)
     private String nrLokalu;
     @Basic
-    @Column(name = "BONUS", nullable = true, precision = 2)
-    private Integer bonus;
+    @Column(name = "BONUS", precision = 2)
+    private int bonus;
     @Basic
-    @Column(name = "ID_PARKU_ROZRYWKI", nullable = false, precision = 0)
-    private BigInteger idParkuRozrywki;
+    @Column(name = "ID_PARKU_ROZRYWKI", nullable = false)
+    private long idParkuRozrywki;
     @Basic
-    @Column(name = "ID_STANOWISKA", nullable = false, precision = 0)
-    private BigInteger idStanowiska;
+    @Column(name = "ID_STANOWISKA", nullable = false)
+    private long idStanowiska;
 }

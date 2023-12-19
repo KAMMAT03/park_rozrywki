@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -14,8 +12,8 @@ import java.math.BigInteger;
 @Table(name = "GASTRONOMIE", schema = "PARK_ROZRYWKI")
 public class GastronomieEntity {
     @Id
-    @Column(name = "ID_ATRAKCJI", nullable = false, precision = 0)
-    private BigInteger idAtrakcji;
+    @Column(name = "ID_ATRAKCJI", nullable = false)
+    private long idAtrakcji;
     @Basic
     @Column(name = "TYP", nullable = false, length = 30)
     private String typ;
@@ -23,6 +21,6 @@ public class GastronomieEntity {
     @Column(name = "GODZINY_OTWARCIA", nullable = false, length = 50)
     private String godzinyOtwarcia;
     @Basic
-    @Column(name = "LICZBA_MIEJSC", nullable = true, precision = 0)
-    private BigInteger liczbaMiejsc;
+    @Column(name = "LICZBA_MIEJSC")
+    private int liczbaMiejsc;
 }

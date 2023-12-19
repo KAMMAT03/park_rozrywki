@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -15,8 +13,8 @@ import java.math.BigInteger;
 public class MiejscaParkingoweEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID_MIEJSCA_PARKINGOWEGO", nullable = false, precision = 0)
-    private BigInteger idMiejscaParkingowego;
+    @Column(name = "ID_MIEJSCA_PARKINGOWEGO", nullable = false)
+    private long idMiejscaParkingowego;
     @Basic
     @Column(name = "SEKTOR", nullable = false, length = 2)
     private String sektor;
@@ -33,15 +31,15 @@ public class MiejscaParkingoweEntity {
     @Column(name = "NR_POSESJI", nullable = false, length = 6)
     private String nrPosesji;
     @Basic
-    @Column(name = "NAZWA_PARKINGU", nullable = true, length = 30)
+    @Column(name = "NAZWA_PARKINGU", length = 30)
     private String nazwaParkingu;
     @Basic
-    @Column(name = "ID_KLIENTA", nullable = true, precision = 0)
-    private BigInteger idKlienta;
+    @Column(name = "ID_KLIENTA")
+    private long idKlienta;
     @Basic
-    @Column(name = "ID_PARKU_ROZRYWKI", nullable = false, precision = 0)
-    private BigInteger idParkuRozrywki;
+    @Column(name = "ID_PARKU_ROZRYWKI", nullable = false)
+    private long idParkuRozrywki;
     @Basic
-    @Column(name = "ID_RODZAJU_MIEJSCA_PARKINGOWEGO", nullable = false, precision = 0)
-    private BigInteger idRodzajuMiejscaParkingowego;
+    @Column(name = "ID_RODZAJU_MIEJSCA_PARKINGOWEGO", nullable = false)
+    private long idRodzajuMiejscaParkingowego;
 }

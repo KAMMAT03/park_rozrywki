@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -15,8 +13,8 @@ import java.math.BigInteger;
 public class StanowiskaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID_STANOWISKA", nullable = false, precision = 0)
-    private BigInteger idStanowiska;
+    @Column(name = "ID_STANOWISKA", nullable = false)
+    private long idStanowiska;
     @Basic
     @Column(name = "NAZWA_STANOWISKA", nullable = false, length = 20)
     private String nazwaStanowiska;
@@ -27,6 +25,6 @@ public class StanowiskaEntity {
     @Column(name = "GODZINY_PRACY", nullable = false, length = 50)
     private String godzinyPracy;
     @Basic
-    @Column(name = "ZAKRES_OBOWIAZKOW", nullable = true, length = 300)
+    @Column(name = "ZAKRES_OBOWIAZKOW", length = 300)
     private String zakresObowiazkow;
 }
