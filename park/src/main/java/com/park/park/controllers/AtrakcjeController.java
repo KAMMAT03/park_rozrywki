@@ -1,7 +1,7 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.AtrakcjeDTO;
-import com.park.park.responses.AtrakcjeResponse;
+import com.park.park.responses.ModelResponse;
 import com.park.park.services.AtrakcjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path = "/atrakcje")
+@RequestMapping(path = "/api/atrakcje")
 public class AtrakcjeController {
     AtrakcjeService atrakcjeService;
     @Autowired
@@ -25,7 +25,7 @@ public class AtrakcjeController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<AtrakcjeResponse> getAllAtrakcje(
+    public ResponseEntity<ModelResponse<AtrakcjeDTO>> getAllAtrakcje(
             @RequestParam(value = "pageNo", defaultValue = "1", required = false) int pageNo,
                    @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize){
         return new ResponseEntity<>(atrakcjeService.getAllAtrakcje(pageNo, pageSize), HttpStatus.OK);

@@ -3,7 +3,7 @@ package com.park.park.services.implementations;
 import com.park.park.dto.AtrakcjeDTO;
 import com.park.park.entities.AtrakcjeEntity;
 import com.park.park.repositories.AtrakcjeRepository;
-import com.park.park.responses.AtrakcjeResponse;
+import com.park.park.responses.ModelResponse;
 import com.park.park.services.AtrakcjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +24,12 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
     }
 
     @Override
-    public AtrakcjeResponse getAllAtrakcje(int pageNo, int pageSize) {
+    public ModelResponse<AtrakcjeDTO> getAllAtrakcje(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         Page<AtrakcjeEntity> atrakcjeEntities = atrakcjeRepository.findAll(pageable);
         List<AtrakcjeEntity> atrakcjeEntityList = atrakcjeEntities.getContent();
         List<AtrakcjeDTO> content = atrakcjeEntityList.stream().map(this::mapToDTO).toList();
-        AtrakcjeResponse atrakcjeResponse = mapToResponse(atrakcjeEntities);
+        ModelResponse<AtrakcjeDTO> atrakcjeResponse = mapToResponse(atrakcjeEntities);
         atrakcjeResponse.setContent(content);
 
         return atrakcjeResponse;
@@ -84,8 +84,8 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
         return atrakcjeDTO;
     }
 
-    private AtrakcjeResponse mapToResponse(Page<AtrakcjeEntity> reviews){
-        AtrakcjeResponse atrakcjeResponse = new AtrakcjeResponse();
+    private ModelResponse<AtrakcjeDTO> mapToResponse(Page<AtrakcjeEntity> reviews){
+        ModelResponse<AtrakcjeDTO> atrakcjeResponse = new ModelResponse<>();
         atrakcjeResponse.setPageNo(reviews.getNumber() + 1);
         atrakcjeResponse.setPageSize(reviews.getSize());
         atrakcjeResponse.setTotalElements(reviews.getTotalElements());
