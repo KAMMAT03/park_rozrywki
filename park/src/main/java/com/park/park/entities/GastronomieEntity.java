@@ -13,7 +13,6 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @Table(name = "GASTRONOMIE", schema = "PARK_ROZRYWKI")
 public class GastronomieEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ID_ATRAKCJI", nullable = false, precision = 0)
     private BigInteger idAtrakcji;

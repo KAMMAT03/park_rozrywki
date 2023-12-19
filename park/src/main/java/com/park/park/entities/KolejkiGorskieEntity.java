@@ -14,7 +14,6 @@ import java.sql.Date;
 @AllArgsConstructor
 @Table(name = "KOLEJKI_GORSKIE", schema = "PARK_ROZRYWKI")
 public class KolejkiGorskieEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ID_ATRAKCJI", nullable = false, precision = 0)
     private BigInteger idAtrakcji;
