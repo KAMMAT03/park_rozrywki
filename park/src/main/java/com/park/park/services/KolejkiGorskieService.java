@@ -1,11 +1,14 @@
 package com.park.park.services;
 
-import com.park.park.dto.AtrakcjeDTO;
-import com.park.park.responses.AtrakcjeResponse;
+import com.park.park.dto.KolejkiGorskieDTO;
+import com.park.park.responses.ModelResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface KolejkiGorskieService {
-    AtrakcjeResponse getAllAtrakcje(int pageNo, int pageSize);
-    AtrakcjeDTO createAtrakcje(AtrakcjeDTO atrakcjeDTO);
-    AtrakcjeDTO updateAtrakcje(AtrakcjeDTO atrakcjeDTO, long idAtrakcji);
-    void deleteAtrakcje(long idAtrakcji);
+    ModelResponse<KolejkiGorskieDTO> getAllKolejkiGorskie(int pageNo, int pageSize);
+    KolejkiGorskieDTO getKolejkiGorskieById(long idAtrakcji);
+    KolejkiGorskieDTO createKolejkiGorskie(KolejkiGorskieDTO kolejkiGorskieDTO);
+    KolejkiGorskieDTO updateKolejkiGorskie(
+            KolejkiGorskieDTO kolejkiGorskieDTO, long idAtrakcji);
+    void deleteKolejkiGorskie(long idAtrakcji);
 }

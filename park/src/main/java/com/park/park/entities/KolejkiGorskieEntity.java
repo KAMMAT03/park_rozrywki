@@ -27,10 +27,10 @@ public class KolejkiGorskieEntity {
     private int minimalnyWzrost;
     @Basic
     @Column(name = "SREDNIA_PREDKOSC", nullable = false, precision = 2)
-    private float sredniaPredkosc;
+    private double sredniaPredkosc;
     @Basic
     @Column(name = "CZAS_JAZDY", nullable = false, precision = 2)
-    private float czasJazdy;
+    private double czasJazdy;
     @Basic
     @Column(name = "POJEMNOSC_WAGONIKA", nullable = false)
     private int pojemnoscWagonika;
