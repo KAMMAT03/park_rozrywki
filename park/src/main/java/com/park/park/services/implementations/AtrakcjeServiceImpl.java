@@ -36,10 +36,17 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
     }
 
     @Override
+    public AtrakcjeDTO getAtrakcjeById(long idAtrakcji) {
+        AtrakcjeEntity atrakcjeEntity = atrakcjeRepository.findById(idAtrakcji)
+                .orElseThrow(() -> new RuntimeException("Nie ma atrakcji o zadanym id"));
+
+        return mapToDTO(atrakcjeEntity);
+    }
+
+    @Override
     public AtrakcjeDTO createAtrakcje(AtrakcjeDTO atrakcjeDTO) {
         AtrakcjeEntity atrakcjeEntity = mapToEntity(atrakcjeDTO);
         AtrakcjeEntity finalAtrakcjeEntity = atrakcjeRepository.save(atrakcjeEntity);
-        System.out.println("yes");
         return mapToDTO(finalAtrakcjeEntity);
     }
 

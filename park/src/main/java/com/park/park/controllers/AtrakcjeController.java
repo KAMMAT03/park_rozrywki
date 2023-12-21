@@ -24,7 +24,13 @@ public class AtrakcjeController {
         return new ResponseEntity<>(atrakcjeService.createAtrakcje(atrakcjeDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/get")
+    @GetMapping("/get/{idAtrakcji}")
+    public ResponseEntity<AtrakcjeDTO> getAtrakcjeById(
+            @PathVariable(value = "idAtrakcji") long idAtrakcji){
+        return new ResponseEntity<>(atrakcjeService.getAtrakcjeById(idAtrakcji), HttpStatus.OK);
+    }
+
+    @GetMapping("/getall")
     public ResponseEntity<ModelResponse<AtrakcjeDTO>> getAllAtrakcje(
             @RequestParam(value = "pageNo", defaultValue = "1", required = false) int pageNo,
                    @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize){
