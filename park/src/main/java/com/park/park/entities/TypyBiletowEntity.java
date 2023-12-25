@@ -20,7 +20,7 @@ public class TypyBiletowEntity {
     private String standard;
     @Basic
     @Column(name = "CENA", nullable = false, precision = 2)
-    private float cena;
+    private double cena;
     @Basic
     @Column(name = "ULGA", length = 20)
     private String ulga;
