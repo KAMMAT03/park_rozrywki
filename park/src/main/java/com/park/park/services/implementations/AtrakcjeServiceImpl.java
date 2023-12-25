@@ -91,13 +91,13 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
         return atrakcjeDTO;
     }
 
-    private ModelResponse<AtrakcjeDTO> mapToResponse(Page<AtrakcjeEntity> reviews){
+    private ModelResponse<AtrakcjeDTO> mapToResponse(Page<AtrakcjeEntity> atrakcjeEntities){
         ModelResponse<AtrakcjeDTO> atrakcjeResponse = new ModelResponse<>();
-        atrakcjeResponse.setPageNo(reviews.getNumber() + 1);
-        atrakcjeResponse.setPageSize(reviews.getSize());
-        atrakcjeResponse.setTotalElements(reviews.getTotalElements());
-        atrakcjeResponse.setTotalPages(reviews.getTotalPages());
-        atrakcjeResponse.setLast(reviews.isLast());
+        atrakcjeResponse.setPageNo(atrakcjeEntities.getNumber() + 1);
+        atrakcjeResponse.setPageSize(atrakcjeEntities.getSize());
+        atrakcjeResponse.setTotalElements(atrakcjeEntities.getTotalElements());
+        atrakcjeResponse.setTotalPages(atrakcjeEntities.getTotalPages());
+        atrakcjeResponse.setLast(atrakcjeEntities.isLast());
         return atrakcjeResponse;
     }
 }

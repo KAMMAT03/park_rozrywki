@@ -40,8 +40,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         (authorizeHttpRequests) -> authorizeHttpRequests
                                 .requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers(HttpMethod.POST,"/api/atrakcje/**").authenticated()
-                                .requestMatchers(HttpMethod.DELETE,"/api/kolejki/**").hasRole("ADMIN")
                                 .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());

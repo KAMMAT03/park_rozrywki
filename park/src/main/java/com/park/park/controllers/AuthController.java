@@ -1,5 +1,6 @@
 package com.park.park.controllers;
 
+import com.park.park.dto.KlienciDTO;
 import com.park.park.dto.UserDTO;
 import com.park.park.entities.Role;
 import com.park.park.entities.UserEntity;
@@ -7,6 +8,7 @@ import com.park.park.repositories.RoleRepository;
 import com.park.park.repositories.UserRepository;
 import com.park.park.responses.AuthResponse;
 import com.park.park.security.JWTTokenGenerator;
+import com.park.park.services.KlienciService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +25,16 @@ import java.util.Collections;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+    private final KlienciService klienciService;
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JWTTokenGenerator jwtTokenGenerator;
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
+    public AuthController(KlienciService klienciService, AuthenticationManager authenticationManager, UserRepository userRepository,
                           RoleRepository roleRepository, PasswordEncoder passwordEncoder, JWTTokenGenerator jwtTokenGenerator) {
+        this.klienciService = klienciService;
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -58,6 +62,16 @@ public class AuthController {
 
         Role roles = roleRepository.findByName("USER").get();
         userEntity.setRoles(Collections.singletonList(roles));
+
+        KlienciDTO klienciDTO = new KlienciDTO();
+
+        klienciDTO.setImie(userDTO.getImie());
+        klienciDTO.setNazwisko(userDTO.getNazwisko());
+        klienciDTO.setDataUrodzenia(userDTO.getDataUrodzenia());
+
+        KlienciDTO finalKlienci = klienciService.createKlienci(klienciDTO);
+
+        userEntity.setSystemId(finalKlienci.getIdKlienta());
 
         userRepository.save(userEntity);
 
