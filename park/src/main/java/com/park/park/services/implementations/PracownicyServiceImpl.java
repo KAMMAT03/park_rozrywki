@@ -40,6 +40,9 @@ public class PracownicyServiceImpl implements PracownicyService {
 
     @Override
     public ModelResponse<PracownicyDTO> getAllPracownicyByStanowisko(long idStanowiska, int pageNo, int pageSize) {
+        stanowiskaRepository.findById(idStanowiska)
+                .orElseThrow(() -> new RuntimeException("Nie ma stanowiska o zadanym id"));
+
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         Page<PracownicyEntity> pracownicyEntities = pracownicyRepository.findAllByIdStanowiska(idStanowiska, pageable);
         List<PracownicyEntity> pracownicyEntityList = pracownicyEntities.getContent();
