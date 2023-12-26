@@ -20,7 +20,7 @@ public class RodzajeMiejscaParkingowegoEntity {
     private String standard;
     @Basic
     @Column(name = "STAWKA_GODZINOWA", nullable = false, precision = 2)
-    private float stawkaGodzinowa;
+    private double stawkaGodzinowa;
     @Basic
     @Column(name = "OPIS_MIEJSCA_PARKINGOWEGO", length = 300)
     private String opisMiejscaParkingowego;
