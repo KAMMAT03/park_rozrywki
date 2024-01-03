@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +28,22 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
     public ModelResponse<AtrakcjeDTO> getAllAtrakcje(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         Page<AtrakcjeEntity> atrakcjeEntities = atrakcjeRepository.findAll(pageable);
+        List<AtrakcjeEntity> atrakcjeEntityList = atrakcjeEntities.getContent();
+        List<AtrakcjeDTO> content = atrakcjeEntityList.stream().map(this::mapToDTO).toList();
+        ModelResponse<AtrakcjeDTO> atrakcjeResponse = mapToResponse(atrakcjeEntities);
+        atrakcjeResponse.setContent(content);
+
+        return atrakcjeResponse;
+    }
+
+    @Override
+    public ModelResponse<AtrakcjeDTO> getOnlyAtrakcje(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+
+        List<String> excluded = new ArrayList<>();
+        excluded.add("Kolejka górska");
+        excluded.add("Gastronomia");
+        Page<AtrakcjeEntity> atrakcjeEntities = atrakcjeRepository.findAllByTypAtrakcjiIsNotIn(excluded,pageable);
         List<AtrakcjeEntity> atrakcjeEntityList = atrakcjeEntities.getContent();
         List<AtrakcjeDTO> content = atrakcjeEntityList.stream().map(this::mapToDTO).toList();
         ModelResponse<AtrakcjeDTO> atrakcjeResponse = mapToResponse(atrakcjeEntities);

@@ -37,6 +37,13 @@ public class AtrakcjeController {
         return new ResponseEntity<>(atrakcjeService.getAllAtrakcje(pageNo, pageSize), HttpStatus.OK);
     }
 
+    @GetMapping("/getonly")
+    public ResponseEntity<ModelResponse<AtrakcjeDTO>> getOnlyAtrakcje(
+            @RequestParam(value = "pageNo", defaultValue = "1", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize){
+        return new ResponseEntity<>(atrakcjeService.getOnlyAtrakcje(pageNo, pageSize), HttpStatus.OK);
+    }
+
     @PutMapping("/update/{idAtrakcji}")
     public ResponseEntity<AtrakcjeDTO> updateAtrakcje(@PathVariable(value = "idAtrakcji") long idAtrakcji,
                                                       @RequestBody AtrakcjeDTO atrakcjeDTO){
