@@ -1,13 +1,12 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Main from './pages/Main';
-import Bilety from './pages/Bilety';
-import Auth from './pages/Auth';
-import Tables from './pages/Tables';
-import './index.css'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Main from "./pages/Main";
+import Bilety from "./pages/Bilety";
+import Auth from "./pages/Auth";
+import Tables from "./pages/Tables";
+import "./index.css";
 
-export default function App(){
-  
+export default function App() {
   return (
     <div>
       <Routes>
@@ -17,5 +16,5 @@ export default function App(){
         {/* <Route path="*" element={<Tables />} /> */}
       </Routes>
     </div>
-  )
+  );
 }

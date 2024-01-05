@@ -1,0 +1,26 @@
+.custom-filter {
+  filter: invert(95%) sepia(5%) saturate(395%) hue-rotate(183deg)
+    brightness(97%) contrast(94%);
+}
+
+#nav,
+#auth,
+#bilet,
+#atr,
+#det {
+  background: rgb(114, 90, 193);
+  background: linear-gradient(
+    90deg,
+    rgba(114, 90, 193, 1) 0%,
+    rgba(141, 134, 201, 1) 100%
+  );
+}
+
+#choose {
+  background: rgb(114, 90, 193);
+  background: linear-gradient(
+    180deg,
+    rgba(114, 90, 193, 1) 0%,
+    rgba(141, 134, 201, 1) 100%
+  );
+}
