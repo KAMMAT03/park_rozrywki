@@ -3,8 +3,8 @@ import React from "react";
 export default function DetailView(props) {
   return (
     <div
-      className="fixed bottom-20 left-1/4 right-1/4 top-20 z-20 flex flex-col gap-2 overflow-y-hidden rounded-xl border-4 border-slate-200 p-8 text-slate-200"
-      id="det"
+      className="fixed left-[calc(50vw-290px)] right-[calc(50vw-290px)] top-[calc(50vh-288px)] z-20 flex flex-col gap-2 rounded-xl bg-[#CAC4CE] p-8 text-slate-800"
+      id="dets"
     >
       <img
         src="x-svg.svg"
@@ -13,11 +13,11 @@ export default function DetailView(props) {
         alt="close button"
       />
       <img
-        className=" mx-auto h-80 w-96 rounded-md object-cover"
-        src="coaster.jpg"
+        className=" mx-auto h-80 w-96 rounded-md border-2 border-slate-800 object-cover shadow-lg"
+        src={props.element.imageUrl}
         alt="kolejka"
       />
-      <p className="border-t-2 border-[#CAC4CE] text-center  text-xl font-bold">
+      <p className="border-t-0 border-slate-800 text-center  text-xl font-bold">
         {props.element.nazwaAtrakcji}
       </p>
       <p className="text-center">{props.element.opisAtrakcji}</p>
@@ -47,7 +47,7 @@ export default function DetailView(props) {
           </p>
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-2 border-t-2 p-2">
+        <div className="flex flex-col items-center gap-2 border-t-0 p-2">
           <p>
             Typ kuchni: <strong>{props.element.typ}</strong>
           </p>
