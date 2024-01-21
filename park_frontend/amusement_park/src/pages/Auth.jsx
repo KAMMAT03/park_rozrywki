@@ -1,14 +1,18 @@
 import React from "react";
 import Nav from "../components/Nav";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const [years, setYears] = React.useState([]);
   const [months, setMonths] = React.useState([]);
   const [days, setDays] = React.useState([]);
 
-  const [registerView, setRegisterView] = React.useState(true);
+  const [registerView, setRegisterView] = React.useState(false);
 
   const [message, setMessage] = React.useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [userData, setUserData] = React.useState({
     username: "",
@@ -24,42 +28,86 @@ export default function Auth() {
   function submitRegister(event) {
     event.preventDefault();
 
-    if (userData.password !== userData.confpassword) {
-      setMessage("Passwords do not match!");
+    const arr = Object.values(userData);
+
+    if (registerView) {
+      for (let val of arr) {
+        if (val === "") {
+          setMessage("Uzupełnij wszystkie pola!");
+          return;
+        }
+      }
+      if (userData.password !== userData.confpassword) {
+        setMessage("Hasła się różnią!");
+        return;
+      }
+    } else if (userData.username === "") {
+      setMessage("Uzupełnij wszystkie pola!");
       return;
     }
 
-    fetch("http://localhost:8080/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    if (userData.password < 5) {
+      setMessage("Hasło musi zawierać conajmniej 6 znaków!");
+      return;
+    }
+
+    fetch(
+      `http://localhost:8080/api/auth/${registerView ? "register" : "login"}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: registerView
+          ? JSON.stringify({
+              username: userData.username,
+              password: userData.password,
+              imie: userData.imie,
+              nazwisko: userData.nazwisko,
+              dataUrodzenia:
+                userData.rok +
+                "-" +
+                formatMonth(userData.miesiac) +
+                "-" +
+                userData.dzien,
+            })
+          : JSON.stringify({
+              username: userData.username,
+              password: userData.password,
+            }),
       },
-      body: JSON.stringify({
-        username: userData.username,
-        password: userData.password,
-        imie: userData.imie,
-        nazwisko: userData.nazwisko,
-        dataUrodzenia:
-          userData.rok +
-          "-" +
-          formatMonth(userData.miesiac) +
-          "-" +
-          userData.dzien,
-      }),
-    })
-      .then((response) => response.json())
+    )
+      .then((response) => {
+        if (response.status != "401") return response.json();
+        else throw new Error("Wrong password or username!");
+      })
       .then((json) => {
-        console.log(json);
-        // if (json.code === '200'){
-        //     navigate("/search", { state: {username: credentials.username, token: json.token} });
-        // } else {
-        //     setMessage(json.message);
-        //     setCredentials(prev => ({
-        //         ...prev,
-        //         password: "",
-        //         confpassword: ""
-        //     }));
-        // }
+        if (json.code === "200") {
+          const destination = location.state ? location.state.prev : "/main";
+          navigate(destination, {
+            state: {
+              username: userData.username,
+              token: json.accessToken,
+              role: json.role,
+            },
+          });
+        } else {
+          setMessage(json.message);
+          setUserData((prev) => ({
+            ...prev,
+            password: "",
+            confpassword: "",
+          }));
+        }
+      })
+      .catch((err) => {
+        // setMessage("Wrong password or username!");
+        // setUserData((prev) => ({
+        //   ...prev,
+        //   password: "",
+        //   confpassword: "",
+        // }));
+        console.log(err);
       });
   }
 
@@ -174,14 +222,16 @@ export default function Auth() {
 
   return (
     <>
-      <Nav />
+      <Nav current="/auth" />
       <div className="mt-24 flex flex-col items-center justify-center p-4">
         <div
           className="flex min-w-[40vw] flex-col justify-center gap-2 rounded-xl p-6"
           id="auth"
         >
           <form onSubmit={submitRegister} className="flex flex-col gap-2">
-            <p className="text-red-600">{message}</p>
+            <p className="w-fit self-center rounded-lg bg-slate-200 p-1 px-2 font-bold text-red-600">
+              {message}
+            </p>
             <div className="flex flex-col rounded-lg bg-slate-200 p-2 shadow-xl">
               <label htmlFor="username" className="select-text font-bold">
                 Nazwa użytkownika:
@@ -303,14 +353,14 @@ export default function Auth() {
           <div className="flex gap-3 self-center text-slate-200">
             <span>
               {registerView
-                ? "Nie posiadasz jeszcze konta?"
-                : "Posiadasz już konto?"}
+                ? "Posiadasz już konto?"
+                : "Nie posiadasz jeszcze konta?"}
             </span>
             <button
               onClick={toggleRegistered}
               className="rounded-lg px-2 font-semibold transition duration-200 ease-in hover:bg-slate-200 hover:text-black active:opacity-90"
             >
-              {registerView ? "Zarejestruj się!" : "Zaloguj się!"}
+              {registerView ? "Zaloguj się!" : "Zarejestruj się!"}
             </button>
           </div>
         </div>
