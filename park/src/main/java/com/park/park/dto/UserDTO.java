@@ -10,4 +10,5 @@ public class UserDTO {
     private String imie;
     private String nazwisko;
     private String dataUrodzenia;
+    private String roleType;
 }

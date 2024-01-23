@@ -2,7 +2,11 @@ package com.park.park.services.implementations;
 
 import com.park.park.dto.AtrakcjeDTO;
 import com.park.park.entities.AtrakcjeEntity;
+import com.park.park.entities.GastronomieEntity;
+import com.park.park.entities.KolejkiGorskieEntity;
 import com.park.park.repositories.AtrakcjeRepository;
+import com.park.park.repositories.GastronomieRepository;
+import com.park.park.repositories.KolejkiGorskieRepository;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.AtrakcjeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +22,14 @@ import java.util.List;
 @Service
 public class AtrakcjeServiceImpl implements AtrakcjeService {
     private final AtrakcjeRepository atrakcjeRepository;
+    private final KolejkiGorskieRepository kolejkiGorskieRepository;
+    private final GastronomieRepository gastronomieRepository;
 
     @Autowired
-    public AtrakcjeServiceImpl(AtrakcjeRepository atrakcjeRepository) {
+    public AtrakcjeServiceImpl(AtrakcjeRepository atrakcjeRepository, KolejkiGorskieRepository kolejkiGorskieRepository, GastronomieRepository gastronomieRepository) {
         this.atrakcjeRepository = atrakcjeRepository;
+        this.kolejkiGorskieRepository = kolejkiGorskieRepository;
+        this.gastronomieRepository = gastronomieRepository;
     }
 
     @Override
@@ -75,6 +83,7 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
         if (atrakcjeDTO.getNazwaAtrakcji() != null) atrakcjeEntity.setNazwaAtrakcji(atrakcjeDTO.getNazwaAtrakcji());
         if (atrakcjeDTO.getTypAtrakcji() != null) atrakcjeEntity.setTypAtrakcji(atrakcjeDTO.getTypAtrakcji());
         if (atrakcjeDTO.getOpisAtrakcji() != null) atrakcjeEntity.setOpisAtrakcji(atrakcjeDTO.getOpisAtrakcji());
+        if (atrakcjeDTO.getImageUrl() != null) atrakcjeEntity.setImageUrl(atrakcjeDTO.getImageUrl());
 
         AtrakcjeEntity updatedAtrakcje = atrakcjeRepository.save(atrakcjeEntity);
 
@@ -86,6 +95,18 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
         AtrakcjeEntity atrakcjeEntity = atrakcjeRepository.findById(idAtrakcji)
                 .orElseThrow(() -> new RuntimeException("Nie ma atrakcji o zadanym id"));
 
+        if (atrakcjeEntity.getTypAtrakcji().equals("Kolejka górska")){
+            KolejkiGorskieEntity kolejkiGorskieEntity = kolejkiGorskieRepository.findById(idAtrakcji)
+                    .orElseThrow(() -> new RuntimeException("Nie ma kolejki o zadanym id"));
+
+            kolejkiGorskieRepository.delete(kolejkiGorskieEntity);
+        } else if (atrakcjeEntity.getTypAtrakcji().equals("Gastronomia")){
+            GastronomieEntity gastronomieEntity = gastronomieRepository.findById(idAtrakcji)
+                    .orElseThrow(() -> new RuntimeException("Nie ma gastronomii o zadanym id"));
+
+            gastronomieRepository.delete(gastronomieEntity);
+        }
+
         atrakcjeRepository.delete(atrakcjeEntity);
     }
 
@@ -95,6 +116,7 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
         atrakcjeEntity.setTypAtrakcji(atrakcjeDTO.getTypAtrakcji());
         atrakcjeEntity.setOpisAtrakcji(atrakcjeDTO.getOpisAtrakcji());
         atrakcjeEntity.setIdParkuRozrywki(atrakcjeDTO.getIdParkuRozrywki());
+        atrakcjeEntity.setImageUrl(atrakcjeDTO.getImageUrl());
         return atrakcjeEntity;
     }
 
@@ -105,6 +127,7 @@ public class AtrakcjeServiceImpl implements AtrakcjeService {
         atrakcjeDTO.setTypAtrakcji(atrakcjeEntity.getTypAtrakcji());
         atrakcjeDTO.setOpisAtrakcji(atrakcjeEntity.getOpisAtrakcji());
         atrakcjeDTO.setIdParkuRozrywki(atrakcjeEntity.getIdParkuRozrywki());
+        atrakcjeDTO.setImageUrl(atrakcjeEntity.getImageUrl());
         return atrakcjeDTO;
     }
 

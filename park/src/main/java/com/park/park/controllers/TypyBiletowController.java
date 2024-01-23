@@ -1,8 +1,10 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.TypyBiletowDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.TypyBiletowService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +21,9 @@ public class TypyBiletowController {
     }
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<TypyBiletowDTO> createTypyBiletow(@RequestBody TypyBiletowDTO typyBiletowDTO){
-        return new ResponseEntity<>(typyBiletowService.createTypyBiletow(typyBiletowDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(typyBiletowService.createTypyBiletow(typyBiletowDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idTypuBiletu}")
@@ -44,8 +46,9 @@ public class TypyBiletowController {
     }
 
     @DeleteMapping("/delete/{idTypuBiletu}")
-    public ResponseEntity<String> deleteTypyBiletow(@PathVariable(value = "idTypuBiletu") long idTypuBiletu){
+    @Transactional
+    public ResponseEntity<DeleteResponse> deleteTypyBiletow(@PathVariable(value = "idTypuBiletu") long idTypuBiletu){
         typyBiletowService.deleteTypyBiletow(idTypuBiletu);
-        return new ResponseEntity<>("Typ biletu został usunięty", HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteResponse("Typ biletu został usunięty", idTypuBiletu), HttpStatus.OK);
     }
 }

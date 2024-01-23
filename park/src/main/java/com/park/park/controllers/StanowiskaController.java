@@ -1,8 +1,10 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.StanowiskaDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.StanowiskaService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +20,9 @@ public class StanowiskaController {
     }
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<StanowiskaDTO> createStanowiska(@RequestBody StanowiskaDTO stanowiskaDTO){
-        return new ResponseEntity<>(stanowiskaService.createStanowiska(stanowiskaDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(stanowiskaService.createStanowiska(stanowiskaDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idStanowiska}")
@@ -43,8 +45,9 @@ public class StanowiskaController {
     }
 
     @DeleteMapping("/delete/{idStanowiska}")
-    public ResponseEntity<String> deleteStanowiska(@PathVariable(value = "idStanowiska") long idStanowiska){
+    @Transactional
+    public ResponseEntity<DeleteResponse> deleteStanowiska(@PathVariable(value = "idStanowiska") long idStanowiska){
         stanowiskaService.deleteStanowiska(idStanowiska);
-        return new ResponseEntity<>("Stanowisko zostało usunięte", HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteResponse("Stanowisko zostało usunięte", idStanowiska), HttpStatus.OK);
     }
 }

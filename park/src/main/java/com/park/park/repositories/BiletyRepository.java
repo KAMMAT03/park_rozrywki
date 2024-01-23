@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface BiletyRepository extends JpaRepository<BiletyEntity, Long> {
     Page<BiletyEntity> findAll(Pageable pageable);
     Page<BiletyEntity> findAllByIdKlienta(long idKlienta, Pageable pageable);
+    void deleteAllByIdKlienta(long idKlienta);
+    void deleteAllByIdTypuBiletu(long idKlienta);
 }

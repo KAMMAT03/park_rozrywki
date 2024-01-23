@@ -2,6 +2,7 @@ package com.park.park.services.implementations;
 
 import com.park.park.dto.TypyBiletowDTO;
 import com.park.park.entities.TypyBiletowEntity;
+import com.park.park.repositories.BiletyRepository;
 import com.park.park.repositories.TypyBiletowRepository;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.TypyBiletowService;
@@ -16,9 +17,11 @@ import java.util.List;
 @Service
 public class TypyBiletowServiceImpl implements TypyBiletowService {
     private final TypyBiletowRepository typyBiletowRepository;
+    private final BiletyRepository biletyRepository;
     @Autowired
-    public TypyBiletowServiceImpl(TypyBiletowRepository typyBiletowRepository) {
+    public TypyBiletowServiceImpl(TypyBiletowRepository typyBiletowRepository, BiletyRepository biletyRepository) {
         this.typyBiletowRepository = typyBiletowRepository;
+        this.biletyRepository = biletyRepository;
     }
 
     @Override
@@ -67,6 +70,9 @@ public class TypyBiletowServiceImpl implements TypyBiletowService {
     public void deleteTypyBiletow(long idTypuBiletu) {
         TypyBiletowEntity typyBiletowEntity = typyBiletowRepository.findById(idTypuBiletu)
                 .orElseThrow(() -> new RuntimeException("Nie ma typu biletu o zadanym id"));
+
+        biletyRepository.deleteAllByIdTypuBiletu(idTypuBiletu);
+
         typyBiletowRepository.delete(typyBiletowEntity);
     }
 

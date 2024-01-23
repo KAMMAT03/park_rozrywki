@@ -1,6 +1,7 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.AtrakcjeDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.AtrakcjeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class AtrakcjeController {
     }
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<AtrakcjeDTO> createAtrakcje(@RequestBody AtrakcjeDTO atrakcjeDTO){
-        return new ResponseEntity<>(atrakcjeService.createAtrakcje(atrakcjeDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(atrakcjeService.createAtrakcje(atrakcjeDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idAtrakcji}")
@@ -51,8 +52,8 @@ public class AtrakcjeController {
     }
 
     @DeleteMapping("/delete/{idAtrakcji}")
-    public ResponseEntity<String> deleteAtrakcje(@PathVariable(value = "idAtrakcji") long idAtrakcji){
+    public ResponseEntity<DeleteResponse> deleteAtrakcje(@PathVariable(value = "idAtrakcji") long idAtrakcji){
         atrakcjeService.deleteAtrakcje(idAtrakcji);
-        return new ResponseEntity<>("Atrakcja została usunięta", HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteResponse("Atrakcja została usunięta", idAtrakcji), HttpStatus.OK);
     }
 }

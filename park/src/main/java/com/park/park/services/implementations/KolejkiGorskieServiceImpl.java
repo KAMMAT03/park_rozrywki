@@ -69,6 +69,8 @@ public class KolejkiGorskieServiceImpl implements KolejkiGorskieService {
             atrakcjeEntity.setTypAtrakcji(kolejkiGorskieDTO.getTypAtrakcji());
         if (kolejkiGorskieDTO.getOpisAtrakcji() != null)
             atrakcjeEntity.setOpisAtrakcji(kolejkiGorskieDTO.getOpisAtrakcji());
+        if (kolejkiGorskieDTO.getImageUrl() != null)
+            atrakcjeEntity.setImageUrl(kolejkiGorskieDTO.getImageUrl());
 
         atrakcjeRepository.save(atrakcjeEntity);
 
@@ -104,15 +106,15 @@ public class KolejkiGorskieServiceImpl implements KolejkiGorskieService {
 
     @Override
     public void deleteKolejkiGorskie(long idAtrakcji) {
-        AtrakcjeEntity atrakcjeEntity = atrakcjeRepository.findById(idAtrakcji)
-                .orElseThrow(() -> new RuntimeException("Nie ma atrakcji o zadanym id"));
-
-        atrakcjeRepository.delete(atrakcjeEntity);
-
         KolejkiGorskieEntity kolejkiGorskieEntity = kolejkiGorskieRepository.findById(idAtrakcji)
                 .orElseThrow(() -> new RuntimeException("Nie ma kolejki o zadanym id"));
 
         kolejkiGorskieRepository.delete(kolejkiGorskieEntity);
+
+        AtrakcjeEntity atrakcjeEntity = atrakcjeRepository.findById(idAtrakcji)
+                .orElseThrow(() -> new RuntimeException("Nie ma atrakcji o zadanym id"));
+
+        atrakcjeRepository.delete(atrakcjeEntity);
     }
 
     private KolejkiGorskieEntity mapToEntity(KolejkiGorskieDTO kolejkiGorskieDTO){
@@ -124,6 +126,7 @@ public class KolejkiGorskieServiceImpl implements KolejkiGorskieService {
         atrakcjeEntity.setTypAtrakcji("Kolejka górska");
         atrakcjeEntity.setOpisAtrakcji(kolejkiGorskieDTO.getOpisAtrakcji());
         atrakcjeEntity.setIdParkuRozrywki(1);
+        atrakcjeEntity.setImageUrl(kolejkiGorskieDTO.getImageUrl());
 
         AtrakcjeEntity finalAtrakcjeEntity = atrakcjeRepository.save(atrakcjeEntity);
 
@@ -159,6 +162,7 @@ public class KolejkiGorskieServiceImpl implements KolejkiGorskieService {
         kolejkiGorskieDTO.setNazwaAtrakcji(atrakcjeEntity.getNazwaAtrakcji());
         kolejkiGorskieDTO.setTypAtrakcji(atrakcjeEntity.getTypAtrakcji());
         kolejkiGorskieDTO.setOpisAtrakcji(atrakcjeEntity.getOpisAtrakcji());
+        kolejkiGorskieDTO.setImageUrl(atrakcjeEntity.getImageUrl());
 
         return kolejkiGorskieDTO;
     }

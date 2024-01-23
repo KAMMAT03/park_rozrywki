@@ -11,4 +11,5 @@ public class GastronomieDTO {
     private String typ;
     private String godzinyOtwarcia;
     private int liczbaMiejsc = -1;
+    private String imageUrl;
 }

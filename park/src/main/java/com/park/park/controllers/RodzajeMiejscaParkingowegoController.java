@@ -1,8 +1,10 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.RodzajeMiejscaParkingowegoDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.RodzajeMiejscaParkingowegoService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +21,11 @@ public class RodzajeMiejscaParkingowegoController {
     }
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<RodzajeMiejscaParkingowegoDTO> createRodzajeMiejscaParkingowego(
             @RequestBody RodzajeMiejscaParkingowegoDTO rodzajeMiejscaParkingowegoDTO){
         return new ResponseEntity<>(rodzajeMiejscaParkingowegoService
-                .createRodzajeMiejscaParkingowego(rodzajeMiejscaParkingowegoDTO), HttpStatus.CREATED);
+                .createRodzajeMiejscaParkingowego(rodzajeMiejscaParkingowegoDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idRodzajuMiejscaParkingowego}")
@@ -50,9 +52,10 @@ public class RodzajeMiejscaParkingowegoController {
     }
 
     @DeleteMapping("/delete/{idRodzajuMiejscaParkingowego}")
-    public ResponseEntity<String> deleteRodzajeMiejscaParkingowego(
+    @Transactional
+    public ResponseEntity<DeleteResponse> deleteRodzajeMiejscaParkingowego(
             @PathVariable(value = "idRodzajuMiejscaParkingowego") long idRodzajuMiejscaParkingowego){
         rodzajeMiejscaParkingowegoService.deleteRodzajeMiejscaParkingowego(idRodzajuMiejscaParkingowego);
-        return new ResponseEntity<>("Rodzaj miejsca parkingowego został usunięty", HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteResponse("Rodzaj miejsca parkingowego został usunięty", idRodzajuMiejscaParkingowego), HttpStatus.OK);
     }
 }

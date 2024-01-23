@@ -27,4 +27,7 @@ public class AtrakcjeEntity {
     @Basic
     @Column(name = "ID_PARKU_ROZRYWKI", nullable = false)
     private long idParkuRozrywki;
+    @Basic
+    @Column(name = "IMAGE_URL", nullable = false)
+    private String imageUrl;
 }

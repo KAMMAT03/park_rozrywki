@@ -1,6 +1,7 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.GastronomieDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.GastronomieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class GastronomieController {
     }
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<GastronomieDTO> createGastronomie(@RequestBody GastronomieDTO gastronomieDTO){
-        return new ResponseEntity<>(gastronomieService.createGastronomie(gastronomieDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(gastronomieService.createGastronomie(gastronomieDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idAtrakcji}")
@@ -46,8 +47,8 @@ public class GastronomieController {
     }
 
     @DeleteMapping("/delete/{idAtrakcji}")
-    public ResponseEntity<String> deleteGastronomie(@PathVariable(value = "idAtrakcji") long idAtrakcji){
+    public ResponseEntity<DeleteResponse> deleteGastronomie(@PathVariable(value = "idAtrakcji") long idAtrakcji){
         gastronomieService.deleteGastronomie(idAtrakcji);
-        return new ResponseEntity<>("Gastronomia została usunięta", HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteResponse("Gastronomia została usunięta", idAtrakcji), HttpStatus.OK);
     }
 }

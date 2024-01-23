@@ -40,7 +40,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         (authorizeHttpRequests) -> authorizeHttpRequests
                                 .requestMatchers("/api/auth/**").permitAll()
-                                .anyRequest().permitAll()
+                                .requestMatchers("/api/auth/makeadmin").hasAuthority("ADMIN")
+                                .requestMatchers("/api/bilety/**").authenticated()
+                                .requestMatchers("/api/klienci/get").authenticated()
+                                .requestMatchers("/api/atrakcje/getall").permitAll()
+                                .requestMatchers("/api/atrakcje/getonly").permitAll()
+                                .requestMatchers("/api/kolejki/getall").permitAll()
+                                .requestMatchers("/api/gastro/getall").permitAll()
+                                .requestMatchers("/api/typybiletow/getall").permitAll()
+                                .requestMatchers("/api/pracownicy/getall").permitAll()
+                                .anyRequest().hasAuthority("ADMIN")
                 )
                 .httpBasic(Customizer.withDefaults());
 

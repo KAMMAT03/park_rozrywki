@@ -1,6 +1,7 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.PracownicyDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.PracownicyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class PracownicyController {
     }
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PracownicyDTO> createPracownicy(@RequestBody PracownicyDTO pracownicyDTO){
-        return new ResponseEntity<>(pracownicyService.createPracownicy(pracownicyDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(pracownicyService.createPracownicy(pracownicyDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idPracownika}")
@@ -53,8 +54,8 @@ public class PracownicyController {
     }
 
     @DeleteMapping("/delete/{idPracownika}")
-    public ResponseEntity<String> deletePracownicy(@PathVariable(value = "idPracownika") long idPracownika){
+    public ResponseEntity<DeleteResponse> deletePracownicy(@PathVariable(value = "idPracownika") long idPracownika){
         pracownicyService.deletePracownicy(idPracownika);
-        return new ResponseEntity<>("Pracownik został usunięty", HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteResponse("Pracownik został usunięty", idPracownika), HttpStatus.OK);
     }
 }

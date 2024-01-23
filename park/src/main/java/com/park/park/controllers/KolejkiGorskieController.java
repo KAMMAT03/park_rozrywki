@@ -1,6 +1,7 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.KolejkiGorskieDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.KolejkiGorskieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class KolejkiGorskieController {
     }
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<KolejkiGorskieDTO> createKolejkiGorskie(@RequestBody KolejkiGorskieDTO kolejkiGorskieDTO){
-        return new ResponseEntity<>(kolejkiGorskieService.createKolejkiGorskie(kolejkiGorskieDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(kolejkiGorskieService.createKolejkiGorskie(kolejkiGorskieDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idAtrakcji}")
@@ -45,8 +46,8 @@ public class KolejkiGorskieController {
     }
 
     @DeleteMapping("/delete/{idAtrakcji}")
-    public ResponseEntity<String> deleteKolejkiGorskie(@PathVariable(value = "idAtrakcji") long idAtrakcji){
+    public ResponseEntity<DeleteResponse> deleteKolejkiGorskie(@PathVariable(value = "idAtrakcji") long idAtrakcji){
         kolejkiGorskieService.deleteKolejkiGorskie(idAtrakcji);
-        return new ResponseEntity<>("Kolejka górska została usunięta", HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteResponse("Kolejka górska została usunięta", idAtrakcji), HttpStatus.OK);
     }
 }

@@ -9,4 +9,6 @@ public interface MiejscaParkingoweRepository extends JpaRepository<MiejscaParkin
     Page<MiejscaParkingoweEntity> findAll(Pageable pageable);
     Page<MiejscaParkingoweEntity> findAllByIdRodzajuMiejscaParkingowego(
             long idRodzajuMiejscaParkingowego, Pageable pageable);
+    void deleteAllByIdKlienta(long idKlienta);
+    void deleteAllByIdRodzajuMiejscaParkingowego(long idRodzaju);
 }

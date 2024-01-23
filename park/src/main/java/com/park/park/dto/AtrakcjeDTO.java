@@ -9,5 +9,6 @@ public class AtrakcjeDTO {
     private String typAtrakcji;
     private String opisAtrakcji;
     private long idParkuRozrywki;
+    private String imageUrl;
 }
 

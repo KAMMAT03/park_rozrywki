@@ -69,6 +69,8 @@ public class GastronomieServiceImpl implements GastronomieService {
             atrakcjeEntity.setTypAtrakcji(gastronomieDTO.getTypAtrakcji());
         if (gastronomieDTO.getOpisAtrakcji() != null)
             atrakcjeEntity.setOpisAtrakcji(gastronomieDTO.getOpisAtrakcji());
+        if (gastronomieDTO.getImageUrl() != null)
+            atrakcjeEntity.setImageUrl(gastronomieDTO.getImageUrl());
 
         atrakcjeRepository.save(atrakcjeEntity);
 
@@ -89,15 +91,14 @@ public class GastronomieServiceImpl implements GastronomieService {
 
     @Override
     public void deleteGastronomie(long idAtrakcji) {
+        GastronomieEntity gastronomieEntity = gastronomieRepository.findById(idAtrakcji)
+                .orElseThrow(() -> new RuntimeException("Nie ma gastronomii o zadanym id"));
+        gastronomieRepository.delete(gastronomieEntity);
+
         AtrakcjeEntity atrakcjeEntity = atrakcjeRepository.findById(idAtrakcji)
                 .orElseThrow(() -> new RuntimeException("Nie ma atrakcji o zadanym id"));
 
         atrakcjeRepository.delete(atrakcjeEntity);
-
-        GastronomieEntity gastronomieEntity = gastronomieRepository.findById(idAtrakcji)
-                .orElseThrow(() -> new RuntimeException("Nie ma gastronomii o zadanym id"));
-
-        gastronomieRepository.delete(gastronomieEntity);
     }
 
     private GastronomieEntity mapToEntity(GastronomieDTO gastronomieDTO){
@@ -109,6 +110,7 @@ public class GastronomieServiceImpl implements GastronomieService {
         atrakcjeEntity.setTypAtrakcji("Gastronomia");
         atrakcjeEntity.setOpisAtrakcji(gastronomieDTO.getOpisAtrakcji());
         atrakcjeEntity.setIdParkuRozrywki(1);
+        atrakcjeEntity.setImageUrl(gastronomieDTO.getImageUrl());
 
         AtrakcjeEntity finalAtrakcjeEntity = atrakcjeRepository.save(atrakcjeEntity);
 
@@ -134,6 +136,7 @@ public class GastronomieServiceImpl implements GastronomieService {
         gastronomieDTO.setNazwaAtrakcji(atrakcjeEntity.getNazwaAtrakcji());
         gastronomieDTO.setTypAtrakcji(atrakcjeEntity.getTypAtrakcji());
         gastronomieDTO.setOpisAtrakcji(atrakcjeEntity.getOpisAtrakcji());
+        gastronomieDTO.setImageUrl(atrakcjeEntity.getImageUrl());
 
         return gastronomieDTO;
     }

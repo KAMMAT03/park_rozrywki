@@ -2,6 +2,7 @@ package com.park.park.services.implementations;
 
 import com.park.park.dto.StanowiskaDTO;
 import com.park.park.entities.StanowiskaEntity;
+import com.park.park.repositories.PracownicyRepository;
 import com.park.park.repositories.StanowiskaRepository;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.StanowiskaService;
@@ -16,9 +17,11 @@ import java.util.List;
 @Service
 public class StanowiskaServiceImpl implements StanowiskaService {
     private final StanowiskaRepository stanowiskaRepository;
+    private final PracownicyRepository pracownicyRepository;
     @Autowired
-    public StanowiskaServiceImpl(StanowiskaRepository stanowiskaRepository) {
+    public StanowiskaServiceImpl(StanowiskaRepository stanowiskaRepository, PracownicyRepository pracownicyRepository) {
         this.stanowiskaRepository = stanowiskaRepository;
+        this.pracownicyRepository = pracownicyRepository;
     }
 
     @Override
@@ -72,6 +75,8 @@ public class StanowiskaServiceImpl implements StanowiskaService {
     public void deleteStanowiska(long idStanowiska) {
         StanowiskaEntity stanowiskaEntity = stanowiskaRepository.findById(idStanowiska)
                 .orElseThrow(() -> new RuntimeException("Nie ma stanowiska o zadanym id"));
+
+        pracownicyRepository.deleteAllByIdStanowiska(idStanowiska);
 
         stanowiskaRepository.delete(stanowiskaEntity);
     }

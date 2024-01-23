@@ -1,8 +1,10 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.BiletyDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.BiletyService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +20,11 @@ public class BiletyController {
         this.biletyService = biletyService;
     }
 
-    @PostMapping("/create/{idKlienta}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<BiletyDTO> createBilety(@PathVariable(value = "idKlienta") long idKlienta,
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<BiletyDTO> createBilety(HttpServletRequest request,
                                                   @RequestBody BiletyDTO biletyDTO){
-        return new ResponseEntity<>(biletyService.createBilety(biletyDTO, idKlienta), HttpStatus.CREATED);
+        return new ResponseEntity<>(biletyService.createBilety(request, biletyDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idBiletu}")
@@ -38,23 +40,25 @@ public class BiletyController {
         return new ResponseEntity<>(biletyService.getAllBilety(pageNo, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping("/getall/{idKlienta}")
+    @GetMapping("/getall/klient")
     public ResponseEntity<ModelResponse<BiletyDTO>> getAllBiletyByKlient(
+            HttpServletRequest request,
             @RequestParam(value = "pageNo", defaultValue = "1", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
-            @PathVariable(value = "idKlienta") long idKlienta){
-        return new ResponseEntity<>(biletyService.getAllBiletyByKlient(idKlienta, pageNo, pageSize), HttpStatus.OK);
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize){
+        return new ResponseEntity<>(biletyService.getAllBiletyByKlient(request, pageNo, pageSize), HttpStatus.OK);
     }
 
     @PutMapping("/update/{idBiletu}")
-    public ResponseEntity<BiletyDTO> updateBilety(@PathVariable(value = "idBiletu") long idBiletu,
-                                                            @RequestBody BiletyDTO biletyDTO){
-        return new ResponseEntity<>(biletyService.updateBilety(biletyDTO, idBiletu), HttpStatus.OK);
+    public ResponseEntity<BiletyDTO> updateBilety(HttpServletRequest request,
+                                                  @PathVariable(value = "idBiletu") long idBiletu,
+                                                  @RequestBody BiletyDTO biletyDTO){
+        return new ResponseEntity<>(biletyService.updateBilety(request, biletyDTO, idBiletu), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{idBiletu}")
-    public ResponseEntity<String> deleteBilety(@PathVariable(value = "idBiletu") long idBiletu){
-        biletyService.deleteBilety(idBiletu);
-        return new ResponseEntity<>("Bilet został usunięty", HttpStatus.OK);
+    public ResponseEntity<DeleteResponse> deleteBilety(HttpServletRequest request,
+                                               @PathVariable(value = "idBiletu") long idBiletu){
+        biletyService.deleteBilety(request, idBiletu);
+        return new ResponseEntity<>(new DeleteResponse("Bilet został usunięty", idBiletu), HttpStatus.OK);
     }
 }

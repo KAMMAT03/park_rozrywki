@@ -2,6 +2,7 @@ package com.park.park.services.implementations;
 
 import com.park.park.dto.RodzajeMiejscaParkingowegoDTO;
 import com.park.park.entities.RodzajeMiejscaParkingowegoEntity;
+import com.park.park.repositories.MiejscaParkingoweRepository;
 import com.park.park.repositories.RodzajeMiejscaParkingowegoRepository;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.RodzajeMiejscaParkingowegoService;
@@ -16,9 +17,11 @@ import java.util.List;
 @Service
 public class RodzajeMiejscaParkingowegoServiceImpl implements RodzajeMiejscaParkingowegoService {
     private final RodzajeMiejscaParkingowegoRepository rodzajeMiejscaParkingowegoRepository;
+    private final MiejscaParkingoweRepository miejscaParkingoweRepository;
     @Autowired
-    public RodzajeMiejscaParkingowegoServiceImpl(RodzajeMiejscaParkingowegoRepository rodzajeMiejscaParkingowegoRepository) {
+    public RodzajeMiejscaParkingowegoServiceImpl(RodzajeMiejscaParkingowegoRepository rodzajeMiejscaParkingowegoRepository, MiejscaParkingoweRepository miejscaParkingoweRepository) {
         this.rodzajeMiejscaParkingowegoRepository = rodzajeMiejscaParkingowegoRepository;
+        this.miejscaParkingoweRepository = miejscaParkingoweRepository;
     }
 
     @Override
@@ -81,6 +84,8 @@ public class RodzajeMiejscaParkingowegoServiceImpl implements RodzajeMiejscaPark
         RodzajeMiejscaParkingowegoEntity rodzajeMiejscaParkingowegoEntity =
                 rodzajeMiejscaParkingowegoRepository.findById(idRodzajuMiejscaParkingowego)
                         .orElseThrow(() -> new RuntimeException("Nie ma rodzaju miejsca parkingowego o zadanym id"));
+
+        miejscaParkingoweRepository.deleteAllByIdRodzajuMiejscaParkingowego(idRodzajuMiejscaParkingowego);
 
         rodzajeMiejscaParkingowegoRepository.delete(rodzajeMiejscaParkingowegoEntity);
     }

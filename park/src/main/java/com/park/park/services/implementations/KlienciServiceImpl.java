@@ -2,7 +2,9 @@ package com.park.park.services.implementations;
 
 import com.park.park.dto.KlienciDTO;
 import com.park.park.entities.KlienciEntity;
+import com.park.park.repositories.BiletyRepository;
 import com.park.park.repositories.KlienciRepository;
+import com.park.park.repositories.MiejscaParkingoweRepository;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.KlienciService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,13 @@ import java.util.List;
 @Service
 public class KlienciServiceImpl implements KlienciService {
     private final KlienciRepository klienciRepository;
+    private final BiletyRepository biletyRepository;
+    private final MiejscaParkingoweRepository miejscaParkingoweRepository;
     @Autowired
-    public KlienciServiceImpl(KlienciRepository klienciRepository) {
+    public KlienciServiceImpl(KlienciRepository klienciRepository, BiletyRepository biletyRepository, MiejscaParkingoweRepository miejscaParkingoweRepository) {
         this.klienciRepository = klienciRepository;
+        this.biletyRepository = biletyRepository;
+        this.miejscaParkingoweRepository = miejscaParkingoweRepository;
     }
 
     @Override
@@ -66,6 +72,9 @@ public class KlienciServiceImpl implements KlienciService {
     public void deleteKlienci(long idKlienta) {
         KlienciEntity klienciEntity = klienciRepository.findById(idKlienta)
                 .orElseThrow(() -> new RuntimeException("Nie ma klienta o zadanym id"));
+
+        biletyRepository.deleteAllByIdKlienta(idKlienta);
+        miejscaParkingoweRepository.deleteAllByIdKlienta(idKlienta);
 
         klienciRepository.delete(klienciEntity);
     }

@@ -18,4 +18,5 @@ public class KolejkiGorskieDTO {
     private int pojemnoscWagonika = -1;
     private Date dataOstatniegoPrzegladu;
     private int minimialnyWiek = -1;
+    private String imageUrl;
 }

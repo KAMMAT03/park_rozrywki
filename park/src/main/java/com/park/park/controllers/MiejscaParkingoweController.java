@@ -1,6 +1,7 @@
 package com.park.park.controllers;
 
 import com.park.park.dto.MiejscaParkingoweDTO;
+import com.park.park.responses.DeleteResponse;
 import com.park.park.responses.ModelResponse;
 import com.park.park.services.MiejscaParkingoweService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ public class MiejscaParkingoweController {
     }
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<MiejscaParkingoweDTO> createMiejscaParkingowe(
             @RequestBody MiejscaParkingoweDTO miejscaParkingoweDTO){
         return new ResponseEntity<>(miejscaParkingoweService
-                .createMiejscaParkingowe(miejscaParkingoweDTO), HttpStatus.CREATED);
+                .createMiejscaParkingowe(miejscaParkingoweDTO), HttpStatus.OK);
     }
 
     @GetMapping("/get/{idMiejscaParkingowego}")
@@ -59,9 +60,9 @@ public class MiejscaParkingoweController {
     }
 
     @DeleteMapping("/delete/{idMiejscaParkingowego}")
-    public ResponseEntity<String> deleteMiejscaParkingowe(
+    public ResponseEntity<DeleteResponse> deleteMiejscaParkingowe(
             @PathVariable(value = "idMiejscaParkingowego") long idMiejscaParkingowego){
         miejscaParkingoweService.deleteMiejscaParkingowe(idMiejscaParkingowego);
-        return new ResponseEntity<>("Miejsce parkingowe zostało usunięte", HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteResponse("Miejsce parkingowe zostało usunięte", idMiejscaParkingowego), HttpStatus.OK);
     }
 }
