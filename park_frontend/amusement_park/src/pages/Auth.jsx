@@ -237,7 +237,7 @@ export default function Auth() {
                 Nazwa użytkownika:
               </label>
               <input
-                className="rounded-lg border-black p-1 shadow-lg selection:border-2"
+                className="rounded-lg border-black p-1 shadow-lg"
                 type="text"
                 id="username"
                 name="username"
@@ -251,7 +251,7 @@ export default function Auth() {
                 Hasło:
               </label>
               <input
-                className="rounded-lg border-black p-1 shadow-lg selection:border-2"
+                className="rounded-lg border-black p-1 shadow-lg"
                 type="password"
                 id="password"
                 name="password"
@@ -267,7 +267,7 @@ export default function Auth() {
                     Potwierdź hasło:
                   </label>
                   <input
-                    className="rounded-lg border-black p-1 shadow-lg selection:border-2"
+                    className="rounded-lg border-black p-1 shadow-lg"
                     type="password"
                     id="confpassword"
                     name="confpassword"
@@ -281,7 +281,7 @@ export default function Auth() {
                     Imie:
                   </label>
                   <input
-                    className="rounded-lg border-black p-1 shadow-lg selection:border-2"
+                    className="rounded-lg border-black p-1 shadow-lg"
                     type="text"
                     id="imie"
                     name="imie"
@@ -295,7 +295,7 @@ export default function Auth() {
                     Nazwisko:
                   </label>
                   <input
-                    className="rounded-lg border-black p-1 shadow-lg selection:border-2"
+                    className="rounded-lg border-black p-1 shadow-lg"
                     type="text"
                     id="nazwisko"
                     name="nazwisko"
