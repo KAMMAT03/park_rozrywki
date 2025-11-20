@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../App";
 
 export default function Bilety() {
   const [typyBiletow, setTypyBiletow] = React.useState([]);
@@ -12,7 +13,7 @@ export default function Bilety() {
   const [showBuyInfo, setShowBuyInfo] = React.useState(false);
 
   React.useEffect(() => {
-    fetch("http://localhost:8080/api/typybiletow/getall")
+    fetch(`${BACKEND_URL}/api/typybiletow/getall`)
       .then((res) => {
         console.log(res);
         return res.json();
@@ -24,7 +25,7 @@ export default function Bilety() {
   function buyTicket(event) {
     event.preventDefault();
 
-    fetch("http://localhost:8080/api/bilety/create", {
+    fetch(`${BACKEND_URL}/api/bilety/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

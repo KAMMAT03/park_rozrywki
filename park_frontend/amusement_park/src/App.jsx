@@ -8,6 +8,8 @@ import NotFound from "./pages/Redirect";
 import Account from "./pages/Account";
 import "./index.css";
 
+export const BACKEND_URL = "https://amusementpark-api-436625947182.europe-central2.run.app"
+
 export default function App() {
   return (
     <div>

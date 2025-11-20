@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../App";
 
 export default function Tables() {
   const [tableData, setTableData] = React.useState([]);
@@ -117,7 +118,7 @@ export default function Tables() {
       return;
     }
 
-    fetch(`http://localhost:8080/api/atrakcje/getall?pageSize=100`, {
+    fetch(`${BACKEND_URL}/api/atrakcje/getall?pageSize=100`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +134,7 @@ export default function Tables() {
   }, []);
 
   function changeTable(type) {
-    fetch(`http://localhost:8080/api/${type}/getall?pageSize=100`, {
+    fetch(`${BACKEND_URL}/api/${type}/getall?pageSize=100`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -153,7 +154,7 @@ export default function Tables() {
   function deleteElement(event) {
     event.preventDefault();
 
-    fetch(`http://localhost:8080/api/${currentTable}/delete/${deleteId}`, {
+    fetch(`${BACKEND_URL}/api/${currentTable}/delete/${deleteId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -170,7 +171,7 @@ export default function Tables() {
   function updateTable(event) {
     event.preventDefault();
 
-    fetch(`http://localhost:8080/api/${currentTable}/update/${editId}`, {
+    fetch(`${BACKEND_URL}/api/${currentTable}/update/${editId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -197,7 +198,7 @@ export default function Tables() {
       }
     }
 
-    fetch(`http://localhost:8080/api/${currentTable}/create`, {
+    fetch(`${BACKEND_URL}/api/${currentTable}/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

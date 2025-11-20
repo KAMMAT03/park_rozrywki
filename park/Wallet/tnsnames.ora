@@ -1,0 +1,8 @@
+amusementpark_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-frankfurt-1.oraclecloud.com))(connect_data=(service_name=gdb6c7f6643a91d_amusementpark_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+amusementpark_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-frankfurt-1.oraclecloud.com))(connect_data=(service_name=gdb6c7f6643a91d_amusementpark_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+amusementpark_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-frankfurt-1.oraclecloud.com))(connect_data=(service_name=gdb6c7f6643a91d_amusementpark_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+
+

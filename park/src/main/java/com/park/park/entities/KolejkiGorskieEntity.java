@@ -11,7 +11,7 @@ import java.sql.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "KOLEJKI_GORSKIE", schema = "PARK_ROZRYWKI")
+@Table(name = "KOLEJKI_GORSKIE")
 public class KolejkiGorskieEntity {
     @Id
     @Column(name = "ID_ATRAKCJI", nullable = false)

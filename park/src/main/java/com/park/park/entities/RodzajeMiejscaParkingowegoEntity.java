@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "RODZAJE_MIEJSCA_PARKINGOWEGO", schema = "PARK_ROZRYWKI")
+@Table(name = "RODZAJE_MIEJSCA_PARKINGOWEGO")
 public class RodzajeMiejscaParkingowegoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "GASTRONOMIE", schema = "PARK_ROZRYWKI")
+@Table(name = "GASTRONOMIE")
 public class GastronomieEntity {
     @Id
     @Column(name = "ID_ATRAKCJI", nullable = false)

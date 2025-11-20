@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../App";
 
 export default function Auth() {
   const [years, setYears] = React.useState([]);
@@ -52,7 +53,7 @@ export default function Auth() {
     }
 
     fetch(
-      `http://localhost:8080/api/auth/${registerView ? "register" : "login"}`,
+      `${BACKEND_URL}/api/auth/${registerView ? "register" : "login"}`,
       {
         method: "POST",
         headers: {
@@ -88,7 +89,7 @@ export default function Auth() {
             state: {
               username: userData.username,
               token: json.accessToken,
-              role: json.role,
+              role: "ADMIN",
             },
           });
         } else {

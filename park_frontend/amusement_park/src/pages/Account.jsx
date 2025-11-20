@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../App";
 
 export default function Account() {
   const [tickets, setTickets] = React.useState([]);
@@ -14,7 +15,7 @@ export default function Account() {
       return;
     }
 
-    fetch("http://localhost:8080/api/klienci/get", {
+    fetch(`${BACKEND_URL}/api/klienci/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +30,7 @@ export default function Account() {
         console.log("Internal server error. Try again later.");
       });
 
-    fetch("http://localhost:8080/api/bilety/getall/klient", {
+    fetch(`${BACKEND_URL}/api/bilety/getall/klient`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${location.state.token}`,

@@ -11,7 +11,7 @@ import java.sql.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "BILETY", schema = "PARK_ROZRYWKI")
+@Table(name = "BILETY")
 public class BiletyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

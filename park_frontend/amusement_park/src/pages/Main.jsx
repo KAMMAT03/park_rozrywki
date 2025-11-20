@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "../components/Nav";
 import DetailView from "../components/DetailView";
 import { useLocation } from "react-router-dom";
+import { BACKEND_URL } from "../App";
 
 export default function Main() {
   const [kolejki, setKolejki] = React.useState([]);
@@ -12,21 +13,21 @@ export default function Main() {
   const location = useLocation();
 
   React.useEffect(() => {
-    fetch("http://localhost:8080/api/kolejki/getall")
+    fetch(`${BACKEND_URL}/api/kolejki/getall`)
       .then((res) => res.json())
       .then((data) => setKolejki(data.content))
       .catch((err) => {
         console.log("Internal server error. Try again later.");
       });
 
-    fetch("http://localhost:8080/api/gastro/getall")
+    fetch(`${BACKEND_URL}/api/gastro/getall`)
       .then((res) => res.json())
       .then((data) => setGastronomie(data.content))
       .catch((err) => {
         console.log("Internal server error. Try again later.");
       });
 
-    fetch("http://localhost:8080/api/atrakcje/getonly")
+    fetch(`${BACKEND_URL}/api/atrakcje/getonly`)
       .then((res) => res.json())
       .then((data) => setAtrakcje(data.content))
       .catch((err) => {
